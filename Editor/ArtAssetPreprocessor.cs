@@ -16,16 +16,12 @@ namespace ArtPipeline
 
         private void ProcessAsset<T>(T asset)
         {
-            
-            // If the model with the corresponding name exists in the project, move this texture into the Textures folder
-            // of the model folder structure. If the Textures folder doesn't exist, create it (ModelName/Textures).
-            // Do the same with the model and materials as well.
-            
             // TODO: Add naming convention support. When an asset is imported, check its name for prefixes defined in the tool.
             //  If the asset doesn't have the defined prefix, assign it.
             
             // TODO: Add support for multiple meshes in the same folder. For example, if SM_handgun_01.fbx has variants named
             //  SM_handgun_01_mag_full.fbx and SM_handgun_01_mag_empty.fbx, add them to the Meshes folder in the handgun_01 folder.
+            //  This behavior is still buggy. Need to fix it.
             
             // TODO: Come up with a way to allow the user to import models without automatic sorting, on a per case basis.
             
@@ -76,7 +72,7 @@ namespace ArtPipeline
             // Move asset to destination
             MoveAssetToDestination(artFolder, finalAssetName, config.FolderName, destination);
         }
-
+        
         private (string finalAssetName, string finalFolderName) GetAssetNameAndFolderName(AssetData assetData, string[] assetNameSplit, AssetTypeConfig config)
         {
             string assetName = assetData.AssetName;
