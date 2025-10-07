@@ -31,6 +31,10 @@ namespace ArtPipeline
         private bool m_moveAssetsOnImport;
         
         [ShowInInspector]
+        [PropertyOrder(1)]
+        private bool m_createFolderForVariants;
+        
+        [ShowInInspector]
         [PropertyOrder(2)]
         private string m_meshPrefix;
         
@@ -41,6 +45,10 @@ namespace ArtPipeline
         [ShowInInspector]
         [PropertyOrder(2)]
         private string m_materialPrefix;
+        
+        [ShowInInspector]
+        [PropertyOrder(2)]
+        private string m_separator;
         
         [PropertyOrder(-1)]
         [Button(ButtonSizes.Large)]
@@ -55,24 +63,30 @@ namespace ArtPipeline
             AssetDatabase.Refresh();
         }
 
+        [PropertyOrder(3)]
         [Button(ButtonSizes.Large)]
         private void SaveSettings()
         {
             EditorPrefs.SetString("SCP.ArtToolSettings.ArtFolderPath", m_artFolderPath);
             EditorPrefs.SetBool("SCP.ArtToolSettings.MoveAssetsOnImport", m_moveAssetsOnImport);
+            EditorPrefs.SetBool("SCP.ArtToolSettings.CreateFolderForVariants", m_createFolderForVariants);
             EditorPrefs.SetString("SCP.ArtToolSettings.MeshPrefix", m_meshPrefix);
             EditorPrefs.SetString("SCP.ArtToolSettings.TexturePrefix", m_texturePrefix);
             EditorPrefs.SetString("SCP.ArtToolSettings.MaterialPrefix", m_materialPrefix);
+            EditorPrefs.SetString("SCP.ArtToolSettings.Separator", m_separator);
             Debug.Log($"Set art organization preferences!");
         }
 
         protected override void OnEnable()
         {
+            base.OnEnable();
             m_artFolderPath = EditorPrefs.GetString("SCP.ArtToolSettings.ArtFolderPath", "");
             m_moveAssetsOnImport =  EditorPrefs.GetBool("SCP.ArtToolSettings.MoveAssetsOnImport", false);
+            m_createFolderForVariants = EditorPrefs.GetBool("SCP.ArtToolSettings.CreateFolderForVariants", false);
             m_meshPrefix = EditorPrefs.GetString("SCP.ArtToolSettings.MeshPrefix", "");
             m_texturePrefix = EditorPrefs.GetString("SCP.ArtToolSettings.TexturePrefix", "");
             m_materialPrefix = EditorPrefs.GetString("SCP.ArtToolSettings.MaterialPrefix", "");
+            m_separator = EditorPrefs.GetString("SCP.ArtToolSettings.Separator", "");
         }
 
         protected override void OnBeginDrawEditors()
@@ -80,9 +94,11 @@ namespace ArtPipeline
             base.OnBeginDrawEditors();
             EditorPrefs.SetString("SCP.ArtToolSettings.ArtFolderPath", m_artFolderPath);
             EditorPrefs.SetBool("SCP.ArtToolSettings.MoveAssetsOnImport", m_moveAssetsOnImport);
+            EditorPrefs.SetBool("SCP.ArtToolSettings.CreateFolderForVariants", m_createFolderForVariants);
             EditorPrefs.SetString("SCP.ArtToolSettings.MeshPrefix", m_meshPrefix);
             EditorPrefs.SetString("SCP.ArtToolSettings.TexturePrefix", m_texturePrefix);
             EditorPrefs.SetString("SCP.ArtToolSettings.MaterialPrefix", m_materialPrefix);
+            EditorPrefs.SetString("SCP.ArtToolSettings.Separator", m_separator);
         }
     }
 }
