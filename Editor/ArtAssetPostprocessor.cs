@@ -33,8 +33,6 @@ namespace ArtPipeline
             {
                 if (assetPath != null) File.Move(assetPath, destination);
             }
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
         }
 
         private void OnPostprocessModel(GameObject model)
@@ -59,8 +57,6 @@ namespace ArtPipeline
             {
                 if (assetPath != null) File.Move(assetPath, destination);
             }
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
         }
         
         private void CreateAssetSubfoldersIfMissing(string assetName, string assetCategory)
