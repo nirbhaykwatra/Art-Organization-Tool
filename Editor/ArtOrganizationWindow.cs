@@ -460,6 +460,32 @@ namespace ArtPipeline
         protected override void OnEnable()
         {
             base.OnEnable();
+            if (EditorPrefs.GetString(k_settingsPathKey) == null ||
+                !File.Exists(SettingsFilePath))
+            {
+                ArtOrganizationSettings settings = new()
+                {
+                    ArtFolderPath = m_artFolderPath,
+                    PrefabFolderPath = m_prefabFolderPath,
+                    CreateFolderForVariants = m_createFolderForVariants,
+                    MoveAssetsOnImport = m_moveAssetsOnImport,
+                    MaterialPrefix = m_materialPrefix,
+                    TexturePrefix = m_texturePrefix,
+                    MeshPrefix = m_meshPrefix,
+                    ShaderPath = AssetDatabase.GetAssetPath(m_BaseShaderForMaterialGeneration),
+                    ShaderBaseColorProperty = m_BaseColorProperty,
+                    ShaderMHERProperty = m_MHERProperty,
+                    ShaderNormalProperty = m_NormalProperty,
+                    Separator = m_separator,
+                };
+
+                m_serializer.Serialize(settings, Path.Combine(Application.dataPath, k_defaultSettingsFileName));
+                m_settings = settings;
+                
+                EditorPrefs.SetString(k_settingsPathKey, Path.Combine(Application.dataPath, k_defaultSettingsFileName));
+                EditorPrefs.SetString(k_defaultSettingsFileName, k_defaultSettingsFileName);
+            }
+            
             LoadSettings();
         }
 
