@@ -238,6 +238,12 @@ namespace ArtPipeline
                     Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(relativePath);
                     if (texture != null)
                     {
+                        if (texture.name.Contains("normal") || texture.name.Contains("nrm"))
+                        {
+                            TextureImporter texImporter = (TextureImporter)AssetImporter.GetAtPath(relativePath);
+                            texImporter.textureType = TextureImporterType.NormalMap;
+                            AssetDatabase.ImportAsset(relativePath, ImportAssetOptions.ForceUpdate);
+                        }
                         assetTextures.Add(texture);
                         Debug.Log($"Loaded texture: {texture.name}");
                     }
