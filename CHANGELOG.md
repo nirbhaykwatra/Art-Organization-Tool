@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.1] - 2026-04-20
+- Tool now creates a settings file if one did not exist before.
+
 ## [1.0.0] - 2026-04-13
 - Asset processing is now on an opt-in basis to remove interference with regular import operations.
 - Asset files can now be moved into their respective folder structures on import automatically.
