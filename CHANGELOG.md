@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.2] - 2026-04-20
+- When using automatic material generation, normal maps are automatically detected by name and converted to normal map type.
+
 ## [1.0.1] - 2026-04-20
 - Tool now creates a settings file if one did not exist before.
 
