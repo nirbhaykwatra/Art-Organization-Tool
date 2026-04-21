@@ -235,15 +235,18 @@ namespace ArtPipeline
                     if (!m_textureExtensions.Contains(Path.GetExtension(texturePath))) continue;
                     string relativePath = "Assets" + texturePath.Replace('\\', '/').Replace(Application.dataPath, string.Empty);
                     Debug.Log($"Texture relative path: {relativePath}");
+                    string fileNameLower = Path.GetFileNameWithoutExtension(relativePath).ToLower();
+                    if (fileNameLower.Contains("normal") || fileNameLower.Contains("nrm"))
+                    {
+                        TextureImporter texImporter = (TextureImporter)AssetImporter.GetAtPath(relativePath);
+                        texImporter.textureType = TextureImporterType.NormalMap;
+                        AssetDatabase.ImportAsset(relativePath, ImportAssetOptions.ForceUpdate);
+                        AssetDatabase.SaveAssets();
+                        AssetDatabase.Refresh();
+                    }
                     Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(relativePath);
                     if (texture != null)
                     {
-                        if (texture.name.Contains("normal") || texture.name.Contains("nrm"))
-                        {
-                            TextureImporter texImporter = (TextureImporter)AssetImporter.GetAtPath(relativePath);
-                            texImporter.textureType = TextureImporterType.NormalMap;
-                            AssetDatabase.ImportAsset(relativePath, ImportAssetOptions.ForceUpdate);
-                        }
                         assetTextures.Add(texture);
                         Debug.Log($"Loaded texture: {texture.name}");
                     }
