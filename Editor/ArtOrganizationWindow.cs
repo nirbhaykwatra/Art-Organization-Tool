@@ -419,8 +419,9 @@ namespace ArtPipeline
             string[] assetSplit = asset.name.Split(m_settings.Separator);
             string assetName = assetSplit[1]; 
             
-            string prefabPath = Path.Combine(m_prefabFolderPath, assetName + ".prefab");
-            PrefabUtility.SaveAsPrefabAsset(asset, prefabPath);
+            string prefabPath = Path.Combine(m_prefabFolderPath, assetName + ".prefab").Replace("\\", "/");
+            string fullPath = Path.Combine(Application.dataPath, prefabPath);
+            PrefabUtility.SaveAsPrefabAsset(asset, fullPath);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Debug.Log($"Prefab generated for asset: {assetPath} at {prefabPath}");
